@@ -5,20 +5,21 @@ import com.demo.redis.redlock.entity.Person;
 import com.demo.redis.redlock.repository.PersonRepository;
 import com.demo.redis.redlock.service.PersonService;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
 @Service
-@RequiredArgsConstructor
 public class PersonServiceImpl implements PersonService {
 
+    @Autowired
     private RedissonClient redissonClient;
 
-    private final PersonRepository personRepository;
+    @Autowired
+    private PersonRepository personRepository;
 
     private static final String LOCK_KEY_PREFIX = "personLock:";
 
@@ -34,6 +35,7 @@ public class PersonServiceImpl implements PersonService {
 
                 person.setName(request.getName());
                 person.setAge(request.getAge());
+                personRepository.save(person);
 
                 return "Person updated successfully";
             } else {

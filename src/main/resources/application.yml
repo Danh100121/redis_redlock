@@ -10,9 +10,9 @@ spring:
   data:
     redis:
       host: localhost
-      port: 6397
+      port: 6379
 
 redisson:
-  config:
+  config: |
     singleServerConfig:
-      address: "redis://localhost:6397"
+      address: "redis://localhost:6379"
