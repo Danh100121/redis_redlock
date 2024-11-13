@@ -1,22 +1,22 @@
 package com.demo.redis.redlock.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-@Entity
+import java.io.Serializable;
+
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Table(name = "persons")
+@Entity
+@Table(name = "products")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Person {
+public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String name;
 
-    int age;
+    Integer inventoryCount;
 }
